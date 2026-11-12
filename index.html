@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111a24">
+  <meta name="description" content="Find dependable auto parts for your next repair at RoadReady Parts.">
+  <title>RoadReady Parts | Parts that keep you moving</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17212b;
+      --muted: #64717d;
+      --paper: #f5f7f8;
+      --white: #fff;
+      --navy: #111a24;
+      --orange: #f36b35;
+      --orange-dark: #d94d20;
+      --line: #e4e9ec;
+      --green: #23885c;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--paper); }
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+
+    .topbar { background: var(--navy); color: #e9eef2; font-size: 12px; }
+    .topbar-inner { min-height: 36px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .topbar strong { color: #fff; }
+    .topbar-note { color: #bac5ce; }
+
+    header { background: var(--white); border-bottom: 1px solid var(--line); }
+    .header-main { min-height: 76px; display: flex; align-items: center; gap: 36px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; font-size: 20px; font-weight: 850; letter-spacing: -1px; }
+    .brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 11px; background: var(--orange); color: #fff; font-size: 18px; letter-spacing: 0; }
+    .brand span:last-child em { color: var(--orange); font-style: normal; }
+    .search { height: 44px; display: flex; flex: 1; min-width: 120px; border: 1px solid #dfe5e9; border-radius: 8px; overflow: hidden; background: #f8fafb; }
+    .search input { width: 100%; min-width: 0; border: 0; outline: 0; padding: 0 15px; color: var(--ink); background: transparent; }
+    .search input::placeholder { color: #89949e; }
+    .search button { width: 50px; border: 0; color: #fff; background: var(--orange); cursor: pointer; font-size: 18px; }
+    .search button:hover, .primary:hover { background: var(--orange-dark); }
+    .header-actions { display: flex; align-items: center; gap: 22px; white-space: nowrap; }
+    .action { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; }
+    .action-icon { font-size: 19px; }
+    .cart-count { min-width: 19px; height: 19px; display: inline-grid; place-items: center; margin-left: -5px; border-radius: 50%; color: #fff; background: var(--orange); font-size: 11px; }
+
+    nav { border-top: 1px solid #f0f2f4; }
+    .nav-inner { min-height: 45px; display: flex; align-items: center; gap: 28px; overflow-x: auto; white-space: nowrap; }
+    .nav-inner a { color: #4e5b66; font-size: 13px; font-weight: 650; }
+    .nav-inner a:hover { color: var(--orange-dark); }
+    .nav-inner .nav-highlight { color: var(--orange-dark); }
+
+    .hero { position: relative; overflow: hidden; color: #fff; background: #152431; }
+    .hero::before, .hero::after { position: absolute; content: ""; pointer-events: none; }
+    .hero::before { width: 560px; height: 560px; right: 3%; top: -290px; border: 1px solid rgb(255 255 255 / 9%); border-radius: 50%; box-shadow: 0 0 0 60px rgb(255 255 255 / 3%), 0 0 0 120px rgb(255 255 255 / 2%); }
+    .hero::after { width: 380px; height: 120px; right: 8%; bottom: 25px; border-radius: 50%; background: rgb(243 107 53 / 14%); filter: blur(40px); }
+    .hero-inner { position: relative; z-index: 1; min-height: 365px; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 30px; padding-block: 48px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 15px; color: #ffc09f; font-size: 11px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; }
+    .eyebrow::before { width: 20px; height: 2px; content: ""; background: var(--orange); }
+    h1 { max-width: 580px; margin: 0; font-size: clamp(40px, 5.2vw, 65px); line-height: .99; letter-spacing: -3.4px; }
+    .hero-copy { max-width: 470px; margin: 18px 0 25px; color: #c4cfd6; font-size: 15px; line-height: 1.7; }
+    .hero-buttons { display: flex; align-items: center; gap: 18px; }
+    .primary { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; padding: 0 20px; border: 0; border-radius: 6px; color: #fff; background: var(--orange); font-size: 13px; font-weight: 750; cursor: pointer; transition: background .2s; }
+    .text-link { color: #fff; font-size: 13px; font-weight: 700; }
+    .text-link span { margin-left: 5px; color: #ff9a70; }
+    .hero-art { position: relative; min-height: 255px; display: grid; place-items: center; }
+    .hero-disc { position: absolute; width: min(310px, 80%); aspect-ratio: 1; border: 1px solid rgb(255 255 255 / 12%); border-radius: 50%; background: radial-gradient(circle, rgb(255 255 255 / 7%), transparent 68%); }
+    .hero-wheel { position: relative; width: 190px; height: 190px; display: grid; place-items: center; border: 19px solid #273744; border-radius: 50%; background: radial-gradient(circle, #f8fafb 0 16%, #8695a0 17% 23%, #344451 24% 40%, #182631 41% 100%); box-shadow: 0 22px 55px #0006, inset 0 0 0 5px #111a24; transform: rotate(-17deg); }
+    .hero-wheel::before { position: absolute; inset: 20px; border: 7px dashed #aeb8bf; border-radius: 50%; content: ""; }
+    .hero-wheel::after { width: 34px; height: 34px; border: 7px solid #dfe4e7; border-radius: 50%; background: #465662; content: ""; }
+    .hero-tag { position: absolute; right: 2%; bottom: 16%; padding: 11px 15px; border: 1px solid rgb(255 255 255 / 14%); border-radius: 8px; background: #253541; box-shadow: 0 10px 24px #0003; font-size: 11px; }
+    .hero-tag strong { display: block; margin-top: 4px; color: #fff; font-size: 14px; }
+
+    .benefits { position: relative; z-index: 2; margin-top: -1px; background: #fff; border-bottom: 1px solid var(--line); }
+    .benefit-row { min-height: 76px; display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; }
+    .benefit { display: flex; align-items: center; justify-content: center; gap: 11px; padding: 12px; }
+    .benefit + .benefit { border-left: 1px solid var(--line); }
+    .benefit-icon { color: var(--orange); font-size: 21px; }
+    .benefit strong, .benefit small { display: block; }
+    .benefit strong { font-size: 12px; }
+    .benefit small { margin-top: 3px; color: var(--muted); font-size: 10px; }
+
+    .section { padding-block: 54px 58px; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 24px; }
+    .section-kicker { margin: 0 0 7px; color: var(--orange-dark); font-size: 10px; font-weight: 850; letter-spacing: 1.4px; text-transform: uppercase; }
+    h2 { margin: 0; font-size: clamp(25px, 3vw, 33px); letter-spacing: -1.3px; }
+    .section-subtitle { margin: 7px 0 0; color: var(--muted); font-size: 13px; }
+    .all-link { color: var(--orange-dark); font-size: 12px; font-weight: 750; white-space: nowrap; }
+    .category-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 13px; }
+    .category-card { min-height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; border: 1px solid var(--line); border-radius: 9px; background: #fff; transition: transform .18s, border-color .18s, box-shadow .18s; }
+    .category-card:hover { transform: translateY(-3px); border-color: #f5b39a; box-shadow: 0 8px 24px #1826320d; }
+    .category-icon { width: 57px; height: 57px; display: grid; place-items: center; border-radius: 50%; background: #fff0e9; color: #dd5b2b; font-size: 25px; }
+    .category-card:nth-child(2n) .category-icon { background: #eaf3f6; color: #355b69; }
+    .category-card strong { font-size: 12px; }
+
+    .products-section { padding-top: 5px; padding-bottom: 65px; }
+    .product-tools { display: flex; align-items: center; gap: 8px; }
+    .filter-chip { min-height: 34px; padding: 0 13px; border: 1px solid #dce3e7; border-radius: 30px; color: #53606a; background: transparent; font-size: 11px; font-weight: 700; cursor: pointer; }
+    .filter-chip.active, .filter-chip:hover { border-color: var(--navy); color: #fff; background: var(--navy); }
+    .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .product-card { overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: #fff; transition: box-shadow .18s, transform .18s; }
+    .product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px #18263212; }
+    .product-image { position: relative; height: 168px; display: grid; place-items: center; overflow: hidden; background: #edf2f4; }
+    .product-image::before, .product-image::after { position: absolute; content: ""; }
+    .product-image::before { width: 170px; height: 170px; right: -37px; bottom: -96px; border: 1px solid #d7e0e4; border-radius: 50%; box-shadow: 0 0 0 25px #e4ebee, 0 0 0 50px #e9eff1; }
+    .product-image .part { position: relative; z-index: 1; display: grid; width: 90px; height: 90px; place-items: center; border: 1px solid #d3dce0; border-radius: 50%; color: #293d49; background: linear-gradient(145deg, #fff, #dce5e8); box-shadow: 0 10px 20px #1f34401a; font-size: 38px; }
+    .product-card:nth-child(2) .product-image { background: #f3efea; }
+    .product-card:nth-child(2) .part { color: #8d5b22; background: linear-gradient(145deg, #fff, #e8dfd2); }
+    .product-card:nth-child(3) .product-image { background: #edf2ed; }
+    .product-card:nth-child(3) .part { color: #42684e; background: linear-gradient(145deg, #fff, #dce9dd); }
+    .product-card:nth-child(4) .product-image { background: #f0eef5; }
+    .product-card:nth-child(4) .part { color: #544873; background: linear-gradient(145deg, #fff, #e2dfee); }
+    .badge { position: absolute; z-index: 2; top: 12px; left: 12px; padding: 5px 8px; border-radius: 4px; color: #fff; background: var(--orange); font-size: 9px; font-weight: 850; letter-spacing: .5px; text-transform: uppercase; }
+    .product-info { padding: 15px; }
+    .part-type { color: #71808a; font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .product-info h3 { min-height: 39px; margin: 7px 0 8px; font-size: 13px; line-height: 1.45; }
+    .rating { color: #e69824; font-size: 11px; letter-spacing: 1px; }
+    .rating span { margin-left: 4px; color: #7c8790; font-size: 10px; letter-spacing: 0; }
+    .product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #edf0f2; }
+    .price { font-size: 17px; font-weight: 850; letter-spacing: -.5px; }
+    .price small { margin-left: 5px; color: #98a2aa; font-size: 10px; font-weight: 500; text-decoration: line-through; }
+    .add-button { width: 34px; height: 34px; border: 0; border-radius: 6px; color: #fff; background: var(--navy); font-size: 20px; cursor: pointer; }
+    .add-button:hover { background: var(--orange); }
+    .empty-state { grid-column: 1 / -1; padding: 36px; border: 1px dashed #cdd7dc; border-radius: 8px; color: var(--muted); text-align: center; }
+
+    .promo { display: grid; grid-template-columns: 1.15fr .85fr; overflow: hidden; margin-bottom: 64px; border-radius: 10px; color: #fff; background: #e95f2d; }
+    .promo-copy { padding: 31px 36px; }
+    .promo-copy p { margin: 0 0 8px; color: #ffe0d2; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+    .promo-copy h2 { max-width: 470px; font-size: 28px; }
+    .promo-copy span { display: block; margin-top: 9px; color: #ffe3d7; font-size: 12px; }
+    .promo-action { display: grid; place-items: center; padding: 24px; border-left: 1px solid #ffffff35; background: #d95024; }
+    .promo-action strong { display: block; margin-bottom: 10px; font-size: 29px; letter-spacing: -1px; }
+    .promo-action a { padding: 11px 15px; border-radius: 5px; color: var(--ink); background: #fff; font-size: 11px; font-weight: 800; }
+
+    footer { padding-block: 36px; color: #d5dfe5; background: var(--navy); }
+    .footer-main { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 28px; padding-bottom: 30px; }
+    footer .brand { color: #fff; }
+    .footer-about { max-width: 270px; margin: 13px 0 0; color: #aebac3; font-size: 11px; line-height: 1.7; }
+    .footer-col strong { display: block; margin-bottom: 14px; color: #fff; font-size: 11px; }
+    .footer-col a, .footer-col span { display: block; margin-top: 9px; color: #aebac3; font-size: 10px; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 15px; padding-top: 17px; border-top: 1px solid #ffffff1a; color: #8f9da7; font-size: 10px; }
+    .toast { position: fixed; z-index: 10; right: 20px; bottom: 20px; padding: 13px 17px; border-radius: 7px; color: #fff; background: var(--navy); box-shadow: 0 8px 25px #0003; font-size: 12px; opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity .2s, transform .2s; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 850px) {
+      .header-main { gap: 18px; }
+      .header-actions .action-label { display: none; }
+      .header-actions { gap: 15px; }
+      .hero-inner { grid-template-columns: 1.2fr .8fr; }
+      .hero-art { transform: scale(.85); }
+      .category-grid { grid-template-columns: repeat(3, 1fr); }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-main { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 28px, 1160px); }
+      .topbar-inner { justify-content: center; }
+      .topbar-note { display: none; }
+      .header-main { min-height: 66px; flex-wrap: wrap; gap: 12px; padding-block: 12px; }
+      .brand { font-size: 18px; }
+      .brand-mark { width: 32px; height: 32px; }
+      .header-actions { margin-left: auto; }
+      .search { order: 2; flex-basis: 100%; }
+      .nav-inner { gap: 22px; }
+      .hero-inner { min-height: 0; grid-template-columns: 1fr; gap: 0; padding-block: 45px 10px; }
+      h1 { max-width: 440px; font-size: 47px; letter-spacing: -2.7px; }
+      .hero-copy { font-size: 13px; }
+      .hero-art { min-height: 205px; transform: scale(.75); transform-origin: center top; margin-bottom: -35px; }
+      .benefit-row { grid-template-columns: repeat(2, 1fr); padding-block: 7px; }
+      .benefit { justify-content: flex-start; padding: 10px 4px; }
+      .benefit:nth-child(3) { border-left: 0; }
+      .benefit-icon { font-size: 18px; }
+      .benefit strong { font-size: 10px; }
+      .benefit small { font-size: 9px; }
+      .section { padding-block: 42px; }
+      .section-heading { align-items: flex-start; flex-direction: column; margin-bottom: 19px; }
+      .product-tools { width: 100%; overflow-x: auto; padding-bottom: 2px; }
+      .filter-chip { flex: 0 0 auto; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .category-card { min-height: 118px; }
+      .category-icon { width: 49px; height: 49px; font-size: 22px; }
+      .product-grid { gap: 10px; }
+      .product-image { height: 132px; }
+      .product-image .part { width: 72px; height: 72px; font-size: 31px; }
+      .product-info { padding: 11px; }
+      .product-info h3 { min-height: 54px; font-size: 12px; }
+      .price { font-size: 15px; }
+      .promo { grid-template-columns: 1fr; margin-bottom: 44px; }
+      .promo-copy { padding: 25px 22px; }
+      .promo-copy h2 { font-size: 24px; }
+      .promo-action { display: flex; justify-content: space-between; padding: 17px 22px; border-top: 1px solid #ffffff35; border-left: 0; }
+      .promo-action strong { margin: 0; font-size: 23px; }
+      .footer-main { grid-template-columns: repeat(2, 1fr); gap: 25px 15px; }
+      .footer-bottom { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-inner">
+      <span><strong>Free shipping</strong> on orders over $75</span>
+      <span class="topbar-note">Real parts. Real people. Here to help: (800) 555-0148</span>
+    </div>
+  </div>
+  <header>
+    <div class="wrap header-main">
+      <a class="brand" href="#" aria-label="RoadReady Parts home">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span>ROADREADY <em>PARTS</em></span>
+      </a>
+      <form class="search" id="search-form" role="search">
+        <input id="search-input" type="search" placeholder="Search parts, brands, or part numbers..." aria-label="Search auto parts">
+        <button type="submit" aria-label="Search">⌕</button>
+      </form>
+      <div class="header-actions">
+        <a class="action" href="#categories" aria-label="Browse categories"><span class="action-icon" aria-hidden="true">▦</span><span class="action-label">Categories</span></a>
+        <a class="action" href="#products" aria-label="Shopping cart"><span class="action-icon" aria-hidden="true">🛒</span><span class="action-label">Cart</span><span class="cart-count" id="cart-count">0</span></a>
+      </div>
+    </div>
+    <nav aria-label="Main navigation">
+      <div class="wrap nav-inner">
+        <a class="nav-highlight" href="#products">Shop all parts</a>
+        <a href="#categories">Brakes</a>
+        <a href="#categories">Engine</a>
+        <a href="#categories">Filters</a>
+        <a href="#categories">Electrical</a>
+        <a href="#categories">Suspension</a>
+        <a href="#deals">Deals</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <div>
+          <div class="eyebrow">The right part, right on time</div>
+          <h1>Parts that keep you moving.</h1>
+          <p class="hero-copy">Find dependable parts for your next repair, your weekend project, or every mile ahead. Quality you can count on, without the runaround.</p>
+          <div class="hero-buttons">
+            <a class="primary" href="#categories">Shop auto parts</a>
+            <a class="text-link" href="#products">Explore best sellers <span>→</span></a>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-disc"></div>
+          <div class="hero-wheel"></div>
+          <div class="hero-tag">BUILT FOR THE ROAD<strong>Ready for anything.</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits" aria-label="Why shop RoadReady">
+      <div class="wrap benefit-row">
+        <div class="benefit"><span class="benefit-icon" aria-hidden="true">✓</span><div><strong>Fitment guaranteed</strong><small>Parts that fit your vehicle</small></div></div>
+        <div class="benefit"><span class="benefit-icon" aria-hidden="true">↗</span><div><strong>Fast, free shipping</strong><small>On orders over $75</small></div></div>
+        <div class="benefit"><span class="benefit-icon" aria-hidden="true">◷</span><div><strong>Easy 30-day returns</strong><small>Shop with confidence</small></div></div>
+        <div class="benefit"><span class="benefit-icon" aria-hidden="true">♡</span><div><strong>People who know cars</strong><small>Expert help when you need it</small></div></div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="categories">
+      <div class="section-heading">
+        <div><p class="section-kicker">Find what you need</p><h2>Shop by category</h2><p class="section-subtitle">Everything for the garage, all in one place.</p></div>
+        <a class="all-link" href="#products">View all categories →</a>
+      </div>
+      <div class="category-grid">
+        <a class="category-card" href="#products" data-category="Brakes"><span class="category-icon" aria-hidden="true">◉</span><strong>Brakes</strong></a>
+        <a class="category-card" href="#products" data-category="Engine"><span class="category-icon" aria-hidden="true">⚙</span><strong>Engine</strong></a>
+        <a class="category-card" href="#products" data-category="Filters"><span class="category-icon" aria-hidden="true">▤</span><strong>Filters</strong></a>
+        <a class="category-card" href="#products" data-category="Electrical"><span class="category-icon" aria-hidden="true">ϟ</span><strong>Electrical</strong></a>
+        <a class="category-card" href="#products" data-category="Suspension"><span class="category-icon" aria-hidden="true">⌁</span><strong>Suspension</strong></a>
+        <a class="category-card" href="#products" data-category="Accessories"><span class="category-icon" aria-hidden="true">✦</span><strong>Accessories</strong></a>
+      </div>
+    </section>
+
+    <section class="wrap section products-section" id="products">
+      <div class="section-heading">
+        <div><p class="section-kicker">Customer favorites</p><h2>Popular right now</h2><p class="section-subtitle">Trusted essentials for your next project.</p></div>
+        <div class="product-tools" aria-label="Filter products">
+          <button class="filter-chip active" type="button" data-filter="All">All parts</button>
+          <button class="filter-chip" type="button" data-filter="Brakes">Brakes</button>
+          <button class="filter-chip" type="button" data-filter="Engine">Engine</button>
+          <button class="filter-chip" type="button" data-filter="Electrical">Electrical</button>
+        </div>
+      </div>
+      <div class="product-grid" id="product-grid">
+        <article class="product-card" data-category="Brakes" data-name="ceramic brake pad set">
+          <div class="product-image"><span class="badge">Best seller</span><span class="part" aria-hidden="true">◉</span></div>
+          <div class="product-info"><span class="part-type">Brakes</span><h3>QuietStop Ceramic Brake Pad Set</h3><div class="rating" aria-label="Rated 5 out of 5 stars">★★★★★ <span>(128)</span></div><div class="product-bottom"><span class="price">$42.99 <small>$54.99</small></span><button class="add-button" type="button" aria-label="Add QuietStop Ceramic Brake Pad Set to cart">+</button></div></div>
+        </article>
+        <article class="product-card" data-category="Filters" data-name="high flow engine air filter">
+          <div class="product-image"><span class="badge">Top rated</span><span class="part" aria-hidden="true">▤</span></div>
+          <div class="product-info"><span class="part-type">Filters</span><h3>High-Flow Engine Air Filter</h3><div class="rating" aria-label="Rated 5 out of 5 stars">★★★★★ <span>(94)</span></div><div class="product-bottom"><span class="price">$19.50</span><button class="add-button" type="button" aria-label="Add High-Flow Engine Air Filter to cart">+</button></div></div>
+        </article>
+        <article class="product-card" data-category="Electrical" data-name="heavy duty car battery">
+          <div class="product-image"><span class="badge">Road ready</span><span class="part" aria-hidden="true">▰</span></div>
+          <div class="product-info"><span class="part-type">Electrical</span><h3>EverStart Heavy-Duty Car Battery</h3><div class="rating" aria-label="Rated 4 out of 5 stars">★★★★☆ <span>(76)</span></div><div class="product-bottom"><span class="price">$129.00</span><button class="add-button" type="button" aria-label="Add EverStart Heavy-Duty Car Battery to cart">+</button></div></div>
+        </article>
+        <article class="product-card" data-category="Engine" data-name="premium oil filter">
+          <div class="product-image"><span class="badge">Great value</span><span class="part" aria-hidden="true">◍</span></div>
+          <div class="product-info"><span class="part-type">Engine</span><h3>ProGuard Premium Oil Filter</h3><div class="rating" aria-label="Rated 5 out of 5 stars">★★★★★ <span>(203)</span></div><div class="product-bottom"><span class="price">$8.75</span><button class="add-button" type="button" aria-label="Add ProGuard Premium Oil Filter to cart">+</button></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap" id="deals">
+      <div class="promo">
+        <div class="promo-copy"><p>Garage days just got better</p><h2>Gear up for your next repair.</h2><span>Save on select maintenance essentials, hand-picked for your weekend projects.</span></div>
+        <div class="promo-action"><strong>Up to 20% off</strong><a href="#products">Shop the deals →</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-main">
+        <div><a class="brand" href="#"><span class="brand-mark" aria-hidden="true">R</span><span>ROADREADY <em>PARTS</em></span></a><p class="footer-about">Good parts make all the difference. We're here to help you find the right ones and get back on the road.</p></div>
+        <div class="footer-col"><strong>Shop</strong><a href="#categories">Brakes & rotors</a><a href="#categories">Engine parts</a><a href="#categories">Filters</a><a href="#categories">Electrical</a></div>
+        <div class="footer-col"><strong>We're here to help</strong><a href="#deals">Contact us</a><a href="#deals">Shipping & returns</a><a href="#deals">Find your part</a><a href="#deals">FAQs</a></div>
+        <div class="footer-col"><strong>Contact</strong><span>(800) 555-0148</span><span>hello@roadreadyparts.example</span><span>Mon–Sat, 8am–6pm</span></div>
+      </div>
+      <div class="footer-bottom"><span>© 2025 RoadReady Parts. Demo storefront.</span><span>Parts that keep you moving.</span></div>
+    </div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const cards = Array.from(document.querySelectorAll(".product-card"));
+    const count = document.getElementById("cart-count");
+    const toast = document.getElementById("toast");
+    let cartItems = 0;
+    let toastTimer;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    document.querySelectorAll(".add-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        cartItems += 1;
+        count.textContent = cartItems;
+        showToast("Added to your cart.");
+      });
+    });
+
+    document.querySelectorAll(".filter-chip").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelector(".filter-chip.active").classList.remove("active");
+        button.classList.add("active");
+        const filter = button.dataset.filter;
+        cards.forEach((card) => {
+          card.hidden = filter !== "All" && card.dataset.category !== filter;
+        });
+        showEmptyState();
+      });
+    });
+
+    function showEmptyState() {
+      const visibleCards = cards.some((card) => !card.hidden);
+      let emptyState = document.querySelector(".empty-state");
+      if (!visibleCards && !emptyState) {
+        emptyState = document.createElement("p");
+        emptyState.className = "empty-state";
+        emptyState.textContent = "No parts in this category yet. Try another filter.";
+        document.getElementById("product-grid").appendChild(emptyState);
+      } else if (visibleCards && emptyState) {
+        emptyState.remove();
+      }
+    }
+
+    function filterProducts(query) {
+      const normalizedQuery = query.trim().toLowerCase();
+      document.querySelectorAll(".filter-chip").forEach((button) => button.classList.toggle("active", button.dataset.filter === "All"));
+      cards.forEach((card) => {
+        card.hidden = normalizedQuery.length > 0 && !card.dataset.name.includes(normalizedQuery) && !card.dataset.category.toLowerCase().includes(normalizedQuery);
+      });
+      showEmptyState();
+      document.getElementById("products").scrollIntoView({ behavior: "smooth" });
+    }
+
+    document.getElementById("search-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      filterProducts(document.getElementById("search-input").value);
+    });
+
+    document.querySelectorAll(".category-card").forEach((category) => {
+      category.addEventListener("click", () => filterProducts(category.dataset.category));
+    });
+
+    document.querySelector(".action[aria-label='Shopping cart']").addEventListener("click", (event) => {
+      event.preventDefault();
+      showToast(cartItems === 0 ? "Your cart is empty." : `${cartItems} item${cartItems === 1 ? "" : "s"} in your cart.`);
+    });
+  </script>
+</body>
+</html>
